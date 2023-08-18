@@ -1,23 +1,19 @@
 <template>
   <div class="container">
-      <Markdown
-          :detail="detail"
-          @onSuccess="onSuccess"
-      ></Markdown>
+    <Markdown :detail="detail" @onSuccess="onSuccess" />
   </div>
 </template>
 
 <script setup>
-import Markdown from '../components/Markdown.vue'
-import { ref } from 'vue'
-const detail = ref({})
+import Markdown from '../components/Markdown.vue';
+import { ref } from 'vue';
+const detail = ref({});
 
-detail.value ='markdown编辑器测试输入'
+detail.value = 'markdown编辑器测试输入';
 // 创建成功
 const onSuccess = () => {
-  console.log("onSuccess")
-}
-
+  console.log('onSuccess');
+};
 </script>
 
 <style lang="scss" scoped>

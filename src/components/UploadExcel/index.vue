@@ -1,31 +1,35 @@
 <template>
   <el-dialog
-      :title="title"
-      :model-value="modelValue"
-      width="30%"
-      align-center
-      draggable
-      @close="onClose"
+    :title="title"
+    :model-value="modelValue"
+    width="30%"
+    align-center
+    draggable
+    @close="onClose"
   >
     <el-upload
-        ref="uploadRef"
-        :limit="1"
-        accept=".xlsx, .xls"
-        :show-file-list="false"
-        :action="url"
-        :on-success="handleFileSuccess"
-        :before-upload="handleFileBefore"
-        drag
+      ref="uploadRef"
+      :limit="1"
+      accept=".xlsx, .xls"
+      :show-file-list="false"
+      :action="url"
+      :on-success="handleFileSuccess"
+      :before-upload="handleFileBefore"
+      drag
     >
       <el-icon class="el-icon--upload">
-        <upload-filled/>
+        <upload-filled />
       </el-icon>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       <template #tip>
         <div class="el-upload__tip text-center">
           <span>仅允许导入xls、xlsx格式文件。</span>
-          <el-link type="primary" :underline="false" style="font-size:12px;vertical-align: baseline;"
-                   @click="importTemplate">下载模板
+          <el-link
+            type="primary"
+            :underline="false"
+            style="font-size: 12px; vertical-align: baseline"
+            @click="importTemplate"
+            >下载模板
           </el-link>
         </div>
       </template>
@@ -34,8 +38,8 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, watch ,nextTick } from 'vue'
-import {ElMessageBox, ElMessage} from 'element-plus'
+import { defineProps, defineEmits, ref, watch, nextTick } from 'vue';
+import { ElMessageBox, ElMessage } from 'element-plus';
 
 const props = defineProps({
   modelValue: {
@@ -48,39 +52,35 @@ const props = defineProps({
   },
   url: {
     type: String,
-    default: ""
+    default: ''
   }
-})
-const emits = defineEmits(['update:modelValue','onSuccess','onDownTemplate'])
-
-
+});
+const emits = defineEmits(['update:modelValue', 'onSuccess', 'onDownTemplate']);
 
 /** 文件上传成功处理 */
 const handleFileSuccess = (res, file) => {
-  console.log("handleFileSuccess==",file)
+  console.log('handleFileSuccess==', file);
   if (res.status.error_code == 0) {
-    emits('onSuccess')
+    emits('onSuccess');
   } else {
-    ElMessage.error(res.status.error_msg)
+    ElMessage.error(res.status.error_msg);
   }
-
 };
 /**文件上传之前 */
 const handleFileBefore = (file) => {
-  console.log("handleFileBefore==",file)
-
+  console.log('handleFileBefore==', file);
 };
 /**下载模板 */
-const importTemplate = ()=>{
-  emits('onDownTemplate')
-}
+const importTemplate = () => {
+  emits('onDownTemplate');
+};
 
 /**
  * 关闭
  */
 const onClose = () => {
-  emits('update:modelValue', false)
-}
+  emits('update:modelValue', false);
+};
 </script>
 
 <style lang="scss" scoped></style>

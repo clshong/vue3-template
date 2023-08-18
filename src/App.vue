@@ -8,8 +8,10 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App'
 };
+
+let a = 10;
 </script>
 
 <style></style>

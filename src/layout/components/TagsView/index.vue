@@ -5,8 +5,8 @@
         class="tags-view-item"
         :class="isActive(tag) ? 'active' : ''"
         :style="{
-          backgroundColor: isActive(tag) ? $store.getters.cssVar.menuBg : '',
-          borderColor: isActive(tag) ? $store.getters.cssVar.menuBg : '',
+          backgroundColor: isActive(tag) ? SidebarMenuBgColor : '',
+          borderColor: isActive(tag) ? SidebarMenuBgColor : ''
         }"
         v-for="(tag, index) in $store.getters.tagsViewList"
         :key="tag.fullPath"
@@ -15,34 +15,29 @@
       >
         {{ tag.title }}
         <template v-if="!isAffiix(tag)">
-          <Close
-            @click.prevent.stop="onCloseClick(index, tag)"
-            class="el-icon-close"
-          />
+          <Close @click.prevent.stop="onCloseClick(index, tag)" class="el-icon-close" />
         </template>
       </router-link>
     </el-scrollbar>
-    <context-menu
-      v-show="visible"
-      :style="menuStyle"
-      :index="selectIndex"
-    ></context-menu>
   </div>
 </template>
 
 <script setup>
-import { Close } from "@element-plus/icons";
+import { Close } from '@element-plus/icons-vue';
 
-import ContextMenu from "./ContextMenu.vue";
-import { ref, reactive, watch, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { ref, reactive, watch, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 // import store from '@/store'
+
+import { getCssVariableValue } from '@/utils/index.js';
+
+const SidebarMenuBgColor = getCssVariableValue('--base-sidebar-menu-bg-color');
 
 const route = useRoute();
 
 onMounted(() => {
-  console.log(store.getters.tagsViewList, "caidan");
+  console.log(store.getters.tagsViewList, 'caidan');
   console.log(store.getters.cssVar);
 });
 
@@ -60,15 +55,15 @@ const selectIndex = ref(0);
 const visible = ref(false);
 const menuStyle = reactive({
   left: 0,
-  top: 0,
+  top: 0
 });
 /**
  * 展示 menu
  */
 const openMenu = (e, index) => {
   const { x, y } = e;
-  menuStyle.left = x + "px";
-  menuStyle.top = y + "px";
+  menuStyle.left = x + 'px';
+  menuStyle.top = y + 'px';
   selectIndex.value = index;
   visible.value = true;
 };
@@ -80,9 +75,9 @@ const store = useStore();
 const router = useRouter();
 
 const onCloseClick = (index, tag) => {
-  store.commit("app/removeTagsView", {
-    type: "index",
-    index: index,
+  store.commit('app/removeTagsView', {
+    type: 'index',
+    index: index
   });
 
   //如果删除的是当前页面，自动定位到上一个页面
@@ -94,7 +89,7 @@ const onCloseClick = (index, tag) => {
       router.push(pre_page.fullPath);
     } else if (tagsViewList.length == 0) {
       //如果是最后一个，定位到首页
-      router.push("/");
+      router.push('/');
     } else {
       let pre_index = index - 1;
       let pre_page = tagsViewList[pre_index];
@@ -117,13 +112,13 @@ watch(
   visible,
   (val) => {
     if (val) {
-      document.body.addEventListener("click", closeMenu);
+      document.body.addEventListener('click', closeMenu);
     } else {
-      document.body.removeEventListener("click", closeMenu);
+      document.body.removeEventListener('click', closeMenu);
     }
   },
   {
-    immediate: true,
+    immediate: true
   }
 );
 </script>
@@ -134,7 +129,9 @@ watch(
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.12),
+    0 0 3px 0 rgba(0, 0, 0, 0.04);
 
   .tags-view-item {
     display: inline-block;
@@ -162,7 +159,7 @@ watch(
       color: #fff;
 
       &::before {
-        content: "";
+        content: '';
         background: #fff;
         display: inline-block;
         width: 8px;

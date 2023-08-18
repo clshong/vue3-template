@@ -1,0 +1,37 @@
+{
+    "workbench.colorTheme": "One Dark Pro Mix",
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"a
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "path-intellisense.autoTriggerNextSuggestion": true,
+    "path-intellisense.mappings": {
+      "@/": "${workspaceFolder}/src",
+      "/": "${workspaceFolder}",
+      "lib": "${workspaceFolder}/lib",
+      "global": "/Users/dummy/globalLibs"
+    },
+    "Codegeex.Privacy": false,
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "Codegeex.Explanation.LanguagePreference": "zh-CN",
+    "[vue]": {
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    }
+  }

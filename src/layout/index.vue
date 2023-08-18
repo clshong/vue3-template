@@ -1,20 +1,13 @@
 <template>
-  <div
-    class="app-wrapper"
-    :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
-  >
+  <div class="app-wrapper" :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']">
     <!-- 左侧 menu -->
-    <sidebar
-      id="guide-sidebar"
-      class="sidebar-container"
-      :style="{ backgroundColor: variables.menuBg }"
-    />
+    <sidebar id="guide-sidebar" class="sidebar-container" :style="{ SidebarMenuBgColor }" />
     <div class="main-container">
       <div class="fixed-header">
         <!-- 顶部的 navbar -->
-        <navbar />
+        <NavigationBar />
         <!-- tags -->
-        <tags-view></tags-view>
+        <tags-view />
       </div>
       <!-- 内容区 -->
       <app-main />
@@ -23,17 +16,14 @@
 </template>
 
 <script setup>
-import {} from "vue";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import AppMain from "./components/AppMain";
-import variables from "@/styles/variables.module.scss";
-import TagsView from "./components/TagsView";
+import { NavigationBar, TagsView, Sidebar, AppMain } from './components/index';
+import { getCssVariableValue } from '@/utils/index.js';
+
+const SidebarMenuBgColor = getCssVariableValue('--base-sidebar-menu-bg-color');
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/mixin.scss";
-@import "@/styles/variables.module.scss";
+@import '@/styles/mixin.scss';
 
 .app-wrapper {
   @include clearfix;
@@ -47,11 +37,11 @@ import TagsView from "./components/TagsView";
   top: 0;
   right: 0;
   z-index: 9;
-  width: calc(100% - #{$sideBarWidth});
-  transition: width #{$sideBarDuration};
+  width: calc(100% - var(--base-sidebar-width));
+  transition: width var(--base-sidebar-width);
 }
 
 .hideSidebar .fixed-header {
-  width: calc(100% - #{$hideSideBarWidth});
+  width: calc(100% - var(--base-sidebar-hide-width));
 }
 </style>

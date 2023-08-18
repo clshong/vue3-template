@@ -1,22 +1,22 @@
 <template>
   <template v-if="icon">
-    <svg-icon :icon="icon"></svg-icon>
+    <svg-icon :icon="icon" />
   </template>
 
   <span :style="icon ? '' : 'margin-left: 5px'">{{ title }}</span>
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps } from 'vue';
 defineProps({
   title: {
     type: String,
-    required: true,
+    required: true
   },
   icon: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 </script>
 

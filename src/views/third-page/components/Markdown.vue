@@ -9,59 +9,57 @@
 </template>
 
 <script setup>
-import MkEditor from '@toast-ui/editor'
-import '@toast-ui/editor/dist/toastui-editor.css'
-import { onMounted, defineProps, defineEmits, watch } from 'vue'
-import { useStore } from 'vuex'
+import MkEditor from '@toast-ui/editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { onMounted, defineProps, defineEmits, watch } from 'vue';
+import { useStore } from 'vuex';
 const props = defineProps({
   detail: {
     type: String
   }
-})
+});
 
-const emits = defineEmits(['onSuccess'])
+const emits = defineEmits(['onSuccess']);
 
 // 初始化editor
 // Editor实例
-let mkEditor
+let mkEditor;
 // 处理离开页面切换语言导致 dom 无法被获取
-let el
+let el;
 onMounted(() => {
-  el = document.querySelector('#markdown-box')
-  initEditor()
-  mkEditor.setHTML(props.detail)
+  el = document.querySelector('#markdown-box');
+  initEditor();
+  mkEditor.setHTML(props.detail);
+});
 
-})
-
-const store = useStore()
+const store = useStore();
 const initEditor = () => {
   mkEditor = new MkEditor({
     el,
     height: '500px',
     previewStyle: 'vertical',
     language: store.getters.language === 'zh' ? 'zh-CN' : 'en'
-  })
+  });
 
-  mkEditor.getMarkdown()
-}
-
+  mkEditor.getMarkdown();
+};
 
 // 编辑相关
 watch(
   () => props.detail,
-  val => {
+  (val) => {
     if (val) {
-      mkEditor.setHTML(val)
+      mkEditor.setHTML(val);
     }
   },
   {
     immediate: false
   }
-)
+);
 
 // 处理提交
 const onSubmitClick = async () => {
-  console.log(mkEditor.getHTML())
+  console.log(mkEditor.getHTML());
 
   if (props.detail && props.detail._id) {
     // // 编辑文章
@@ -78,9 +76,9 @@ const onSubmitClick = async () => {
     // })
   }
 
-  mkEditor.reset()
-  emits('onSuccess')
-}
+  mkEditor.reset();
+  emits('onSuccess');
+};
 </script>
 
 <style lang="scss" scoped>

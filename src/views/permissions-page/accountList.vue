@@ -5,20 +5,11 @@
         <el-input v-model="searchForm.id" controls-position="right" />
       </el-form-item>
       <el-form-item label="账号">
-        <el-input
-          v-model="searchForm.account"
-          placeholder="账号"
-          clearable
-        ></el-input>
+        <el-input v-model="searchForm.account" placeholder="账号" clearable />
       </el-form-item>
       <el-form-item label="角色">
         <el-select v-model="searchForm.role" placeholder="角色" clearable>
-          <el-option
-            v-for="item in roleList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
+          <el-option v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
 
@@ -30,7 +21,7 @@
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
-        ></el-date-picker>
+        />
       </el-form-item>
 
       <el-form-item>
@@ -50,17 +41,11 @@
       @onImportClick="handleImport"
       @onOutClick="onDownTemplate"
       @onAddClick="onDownTemplate"
-    ></right-toolbar>
+    />
     <el-card>
-      <el-table
-        :data="tableData"
-        v-loading="loading"
-        element-loading-text="加载中..."
-        border
-      >
-        <el-table-column prop="id" label="ID" width="180"></el-table-column>
-        <el-table-column prop="account" label="账号" width="180">
-        </el-table-column>
+      <el-table :data="tableData" v-loading="loading" element-loading-text="加载中..." border>
+        <el-table-column prop="id" label="ID" width="180" />
+        <el-table-column prop="account" label="账号" width="180" />
         <el-table-column label="角色" width="180">
           <template #default="{ row }">
             <el-tag type="danger">{{ row.role_name }}</el-tag>
@@ -68,16 +53,15 @@
         </el-table-column>
         <el-table-column label="头像" align="center">
           <template #default="{ row }">
-            <el-image class="avatar" :src="row.avatar"></el-image>
+            <el-image class="avatar" :src="row.avatar" />
           </template>
         </el-table-column>
         <el-table-column label="状态" width="180">
           <template #default="{ row }">
-            <span>{{ row.is_lock == "1" ? "冻结" : "正常" }}</span>
+            <span>{{ row.is_lock == '1' ? '冻结' : '正常' }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="date" label="操作时间" width="280">
-        </el-table-column>
+        <el-table-column prop="date" label="操作时间" width="280" />
 
         <el-table-column prop="address" label="操作" min-width="280">
           <template #default="{ row }">
@@ -117,12 +101,7 @@
     </el-card>
 
     <!--角色组件-->
-    <roles-dialog
-      v-model="roleDialogVisible"
-      :userId="selectUserId"
-      @updateRole="getListData"
-    >
-    </roles-dialog>
+    <roles-dialog v-model="roleDialogVisible" :userId="selectUserId" @updateRole="getListData" />
 
     <!-- 用户导入对话框 -->
     <UploadExcel
@@ -131,39 +110,36 @@
       :url="switchServerUrl() + '/public/uploadFile'"
       @onSuccess="onSuccess"
       @onDownTemplate="onDownTemplate"
-    >
-    </UploadExcel>
+    />
   </div>
 </template>
 <script>
 export default {
-  name: "adminList",
+  name: 'adminList'
 };
 </script>
 <script setup>
-import RolesDialog from "./components/roles.vue";
-import UploadExcel from "@/components/UploadExcel";
+import RolesDialog from './components/roles.vue';
+import UploadExcel from '@/components/UploadExcel/index.vue';
 
-import { ref, onMounted, watch, reactive } from "vue";
-import { getAdmintorList, getRoleList } from "@/api/api";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { ElMessageBox, ElMessage } from "element-plus";
-import { switchServerUrl } from "@/utils/index";
+import { ref, onMounted, watch } from 'vue';
+import { getAdmintorList, getRoleList } from '@/api/api';
+import { useRouter } from 'vue-router';
+import { ElMessageBox, ElMessage } from 'element-plus';
+import { switchServerUrl } from '@/utils/index';
 
-const store = useStore();
 const router = useRouter();
 
 const showSearch = ref(true);
 
 //数据源
 const searchForm = ref({
-  id: "",
-  account: "",
-  role: "",
-  date: "",
+  id: '',
+  account: '',
+  role: '',
+  date: '',
   page: 1,
-  page_size: 20,
+  page_size: 20
 });
 
 const tableData = ref([]);
@@ -190,6 +166,7 @@ const getListData = async () => {
       }, 1000);
     })
     .catch((err) => {
+      console.log(err);
       loading.value = false;
     });
 };
@@ -202,26 +179,28 @@ const getRoleData = async () => {
     .then((data) => {
       roleList.value = data.bizobj;
     })
-    .catch((err) => {});
+    .catch((err) => {
+      console.log(err);
+    });
 };
 /**
  * 查看按钮点击事件
  */
 const onShowClick = (row) => {
   router.push({
-    path: "/account/detail",
-    query: row,
+    path: '/account/detail',
+    query: row
   });
 };
 /**
  * 删除按钮点击事件
  */
 const onRemoveClick = (row) => {
-  ElMessageBox.confirm("确定要删除" + row.account + "吗", {
-    type: "warning",
+  ElMessageBox.confirm('确定要删除' + row.account + '吗', {
+    type: 'warning'
   }).then(async () => {
     // await deleteUser(row._id)
-    ElMessage.success("删除成功");
+    ElMessage.success('删除成功');
     // 重新渲染数据
     await getListData();
   });
@@ -230,7 +209,7 @@ const onRemoveClick = (row) => {
 /**
  * 查看角色的点击事件
  */
-const selectUserId = ref("");
+const selectUserId = ref('');
 const roleDialogVisible = ref(false);
 const onShowRoleClick = (row) => {
   //真实环境应该获取用户id，但这里mock数据我们直接使用角色名字去匹配
@@ -240,7 +219,7 @@ const onShowRoleClick = (row) => {
 
 // 保证每次打开重新获取用户角色数据
 watch(roleDialogVisible, (val) => {
-  if (!val) selectUserId.value = "";
+  if (!val) selectUserId.value = '';
 });
 
 const searchEvent = () => {
@@ -254,7 +233,7 @@ const upload = ref({
   // 是否显示弹出层（用户导入）
   open: false,
   // 弹出层标题（用户导入）
-  upLoadTitle: "账号导入",
+  upLoadTitle: '账号导入'
 });
 
 /** 导入按钮操作 */
@@ -262,12 +241,12 @@ function handleImport() {
   upload.value.open = true;
 }
 /** 文件上传成功处理 */
-const onSuccess = (response, file, fileList) => {
+const onSuccess = () => {
   upload.value.open = false;
   getListData();
 };
 const onDownTemplate = () => {
-  ElMessage.error("演示模式");
+  ElMessage.error('演示模式');
 };
 </script>
 

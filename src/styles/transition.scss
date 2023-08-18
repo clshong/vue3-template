@@ -1,3 +1,5 @@
+// See https://staging-cn.vuejs.org/guide/built-ins/transition.html for detail
+
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
   transition: all 0.5s;
@@ -18,12 +20,10 @@
 .fade-transform-enter-active {
   transition: all 0.5s;
 }
-
-.fade-transform-enter-from {
+.fade-transform-enter {
   opacity: 0;
   transform: translateX(-30px);
 }
-
 .fade-transform-leave-to {
   opacity: 0;
   transform: translateX(30px);

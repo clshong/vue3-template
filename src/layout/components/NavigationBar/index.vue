@@ -6,18 +6,15 @@
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <!--页面搜索组件-->
-      <header-search class="right-menu-item hover-effect"></header-search>
+      <header-search class="right-menu-item hover-effect" />
       <!--全屏组件-->
       <screenfull class="right-menu-item hover-effect" />
       <!-- 登录账号信息 -->
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <el-image
-            class="avatar"
-            :src="$store.getters.userInfo.avatar"
-          ></el-image>
+          <el-image class="avatar" :src="$store.getters.userInfo.avatar" />
           <div>{{ $store.getters.userInfo.admin_nick_name }}</div>
-          <CaretBottom style="width: 1em; height: 1em; margin-left: 4px" />
+          <ArrowDown style="width: 1em; height: 1em; margin-left: 4px" />
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
@@ -31,19 +28,17 @@
 </template>
 
 <script setup>
-import { CaretBottom } from "@element-plus/icons";
-import {} from "vue";
-import { ref, reactive } from "vue";
-import { useStore } from "vuex";
-import Hamburger from "./Hamburger";
-import Breadcrumb from "./Breadcrumb";
-import Screenfull from "./Screenfull";
-import HeaderSearch from "./HeaderSearch";
+import { ArrowDown } from '@element-plus/icons-vue';
+import { useStore } from 'vuex';
+import Hamburger from '../Hamburger/index.vue';
+import Breadcrumb from '../Breadcrumb/index.vue';
+import Screenfull from '../Screenfull/index.vue';
+import HeaderSearch from '../HeaderSearch/index.vue';
 
 const store = useStore();
 
 const logout = () => {
-  store.dispatch("user/logout");
+  store.dispatch('user/logout');
 };
 </script>
 

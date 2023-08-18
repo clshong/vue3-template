@@ -2,16 +2,15 @@
 #app {
   .main-container {
     min-height: 100%;
-    transition: margin-left #{$sideBarDuration};
-    margin-left: $sideBarWidth;
+    transition: margin-left var(--base-sidebar-width);
+    margin-left: var(--base-sidebar-width);
     position: relative;
-    background: #F7F7F7;
-
+    background: #f7f7f7;
   }
 
   .sidebar-container {
-    transition: width #{$sideBarDuration};
-    width: $sideBarWidth !important;
+    transition: width var(--base-sidebar-width);
+    width: var(--base-sidebar-width) !important;
     height: 100%;
     position: fixed;
     top: 0;
@@ -19,24 +18,21 @@
     left: 0;
     z-index: 1001;
     overflow: hidden;
-    background-color: $menuBg;
+    background-color: var(--base-sidebar-menu-bg-color);
     box-shadow: 1px 1px 4px rgb(0 21 41 / 8%);
     font-size: 0px;
 
-
-
-
     // 重置 element-plus 的css
     .horizontal-collapse-transition {
-      transition: 0s width ease-in-out, 0s padding-left ease-in-out,
+      transition:
+        0s width ease-in-out,
+        0s padding-left ease-in-out,
         0s padding-right ease-in-out;
     }
 
     .scrollbar-wrapper {
       overflow-x: hidden !important;
       margin-top: 2px;
-
-
     }
 
     .el-scrollbar__bar.is-vertical {
@@ -45,9 +41,7 @@
 
     .el-scrollbar {
       height: 100%;
-
     }
-
 
     &.has-logo {
       .el-scrollbar {
@@ -96,28 +90,25 @@
       font-size: 13px !important;
     }
 
-
     .is-active > .el-sub-menu__title {
-      color: $subMenuActiveText !important;
-
+      color: var(--base-sidebar-menu-active-text-color) !important;
     }
 
     & .nest-menu .el-sub-menu > .el-sub-menu__title,
     & .el-sub-menu .el-menu-item {
-      min-width: $sideBarWidth !important;
+      min-width: var(--base-sidebar-width) !important;
 
-      background-color: $subMenuBg !important;
-
+      background-color: var(--base-sidebar-menu-bg-color) !important;
     }
   }
 
   .hideSidebar {
     .sidebar-container {
-      width: 54px !important;
+      width: var(--base-sidebar-hide-width) !important;
     }
 
     .main-container {
-      margin-left: 54px;
+      margin-left: var(--base-sidebar-hide-width);
     }
 
     .sub-menu-title-noDropdown {
@@ -173,7 +164,7 @@
   }
 
   .el-menu--collapse .el-menu .el-sub-menu {
-    min-width: $sideBarWidth !important;
+    min-width: var(--base-sidebar-width) !important;
   }
 
   .withoutAnimation {
@@ -213,5 +204,4 @@
       border-radius: 20px;
     }
   }
-
 }

@@ -1,6 +1,4 @@
-import axios from '@/utils/axios'
-import moment from "moment";
-
+import axios from '@/utils/axios';
 
 /**
  * 登录
@@ -10,7 +8,7 @@ export function login(params) {
     url: '/Index/login',
     method: 'post',
     data: params
-  })
+  });
 }
 /**
  * 获取图形验证码
@@ -20,7 +18,7 @@ export function getCode(params) {
     url: '/Index/getCaptchaCode',
     method: 'post',
     data: params
-  })
+  });
 }
 
 /**
@@ -32,7 +30,7 @@ export function getPermission(params) {
     url: '/Index/getPermission',
     method: 'post',
     data: params
-  })
+  });
 }
 
 /**
@@ -44,7 +42,7 @@ export function getAdmintorList(params) {
     url: '/adminAuth/adminList',
     method: 'post',
     data: params
-  })
+  });
 }
 
 /**
@@ -56,10 +54,8 @@ export function getRoleList(params) {
     url: '/adminAuth/getRoleList',
     method: 'post',
     data: params
-  })
+  });
 }
-
-
 
 //上传图片
 export function publicUploadFile(params) {
@@ -67,9 +63,5 @@ export function publicUploadFile(params) {
     url: '/public/uploadFile',
     method: 'post',
     data: params
-  })
+  });
 }
-
-
-
-

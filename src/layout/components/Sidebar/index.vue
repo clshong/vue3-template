@@ -7,26 +7,26 @@
       </h1>
     </div>
     <el-scrollbar>
-      <sidebar-menu></sidebar-menu>
+      <sidebar-menu />
     </el-scrollbar>
   </div>
 </template>
 
 <script setup>
-import SidebarMenu from "./SidebarMenu";
-import { LOGO_TITLE, LOGO_IMG } from "@/config";
+import SidebarMenu from './SidebarMenu.vue';
+import { LOGO_TITLE, LOGO_IMG } from '@/config';
 
 const logoHeight = 32;
 </script>
 
 <style lang="scss" scoped>
 .logo-container {
-  height: v-bind(logoHeight) + "px";
+  height: v-bind(logoHeight) + 'px';
   padding: 8px 0 5px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
   .logo-title {
     margin-left: 10px;
     color: #fff;

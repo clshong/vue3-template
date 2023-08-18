@@ -3,12 +3,7 @@
     <!-- <div style="position: absolute; height: 100vh; width: 100%">
       <div v-for="item in snow" class="snow"></div>
     </div> -->
-    <el-form
-      ref="loginFromRef"
-      class="login-form"
-      :model="loginForm"
-      :rules="loginRules"
-    >
+    <el-form ref="loginFromRef" class="login-form" :model="loginForm" :rules="loginRules">
       <div class="title-container">
         <h3 class="title">综合服务平台</h3>
       </div>
@@ -22,7 +17,7 @@
           name="username"
           type="text"
           v-model="loginForm.username"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter="handleLogin"
         />
       </el-form-item>
 
@@ -35,7 +30,7 @@
           name="password"
           :type="passwordType"
           v-model="loginForm.password"
-          @keyup.enter.native="handleLogin"
+          @keyup.enter="handleLogin"
         />
         <span class="show-pwd">
           <svg-icon
@@ -55,9 +50,8 @@
           name="captcha_code"
           class="code-input"
           maxlength="4"
-          @keyup.enter.native="handleLogin"
-        >
-        </el-input>
+          @keyup.enter="handleLogin"
+        />
         <div class="code-img" @click="getCodeImg">{{ code_net }}</div>
       </el-form-item>
 
@@ -65,7 +59,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         :loading="loading"
-        @click.native.prevent="handleLogin"
+        @click.prevent="handleLogin"
         size="large"
       >
         <span v-if="!loading">登 录</span>
@@ -76,14 +70,14 @@
 </template>
 
 <script setup>
-import { UserFilled, Lock, Tickets } from "@element-plus/icons";
+import { UserFilled, Lock, Tickets } from '@element-plus/icons-vue';
 
-import { ref, onMounted } from "vue";
-import { validatePassword, validateCode } from "./rules";
-import { getCode } from "@/api/api";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { ElMessage } from "element-plus";
+import { ref, onMounted } from 'vue';
+import { validatePassword, validateCode } from './rules';
+import { getCode } from '@/api/api';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
 
 // //雪花效果
 // const snow = ref([]);
@@ -91,7 +85,7 @@ import { ElMessage } from "element-plus";
 //   snow.value.push(i);
 // }
 
-const code_net = ref("");
+const code_net = ref('');
 
 onMounted(() => {
   getCodeImg();
@@ -99,43 +93,43 @@ onMounted(() => {
 
 //数据源
 const loginForm = ref({
-  username: "",
-  password: "",
-  captcha_code: "",
-  code_key: "",
+  username: '',
+  password: '',
+  captcha_code: '',
+  code_key: ''
 });
 //验证规则
 const loginRules = ref({
   username: [
     {
       required: true,
-      trigger: "blur",
-      message: "请输入用户名",
-    },
+      trigger: 'blur',
+      message: '请输入用户名'
+    }
   ],
   password: [
     {
       required: true,
-      trigger: "blur",
-      validator: validatePassword(),
-    },
+      trigger: 'blur',
+      validator: validatePassword()
+    }
   ],
   captcha_code: [
     {
       required: true,
-      trigger: "blur",
-      validator: validateCode(),
-    },
-  ],
+      trigger: 'blur',
+      validator: validateCode()
+    }
+  ]
 });
 
 // 处理密码框文本显示状态
-const passwordType = ref("password");
+const passwordType = ref('password');
 const onChangePwdType = () => {
-  if (passwordType.value === "password") {
-    passwordType.value = "text";
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text';
   } else {
-    passwordType.value = "password";
+    passwordType.value = 'password';
   }
 };
 
@@ -153,20 +147,20 @@ const handleLogin = () => {
     if (!valid) return;
     console.log(loginForm.value);
     if (loginForm.value.captcha_code != code_net.value) {
-      ElMessage.error("验证码错误！");
+      ElMessage.error('验证码错误！');
       return;
     }
     loading.value = true;
     store
-      .dispatch("user/login", loginForm.value)
+      .dispatch('user/login', loginForm.value)
       .then(() => {
         setTimeout(() => {
           loading.value = false;
           // TODO: 登录后操作
-          router.push("/");
+          router.push('/');
         }, 500);
       })
-      .catch((err) => {
+      .catch(() => {
         getCodeImg();
         loading.value = false;
       });
@@ -183,7 +177,7 @@ const getCodeImg = () => {
       loginForm.value.code_key = obj.code_key;
       code_net.value = obj.code;
     })
-    .catch((err) => {});
+    .catch(() => {});
 };
 </script>
 
